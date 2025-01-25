@@ -1,67 +1,160 @@
-import { AspectRatio, Card, Container, Image, SimpleGrid, Text, Title } from '@mantine/core';
-import classes from './card-grid.module.css';
+"use client";
+import { useState } from 'react';
+import { motion } from 'framer-motion';
+import { 
+  ArrowUpRight, 
+  Code, 
+  Database, 
+  CloudCog 
+} from 'lucide-react';
 
-const mockdata = [
+const projects = [
   {
-    title: 'Top 10 places to visit in Norway this summeTop 10 places to visit in Norway this summerTop 10 places to visit in Norway this summerTop 10 places to visit in Norway this summerr',
-    image:
-      'gifs/project-1.gif',
-    date: 'August 18, 2022',
+    title: 'algowar.xyz',
+    description: 'Full-stack coding challenge platform with multiplayer and gamification features',
+    technologies: ['Next.js', 'Spring Boot', 'PostgreSQL', 'Socket.io'],
+    image: 'images/coming-soon.webp',
+    link: 'https://github.com/rohanshah35/algowar'
   },
   {
-    title: 'This Java application analyzes professor ratings using web scraping and natural language processing techniques. It provides comprehensive insights through sentiment analysis, grade averaging, and data visualization.',
-    image:
-      'gifs/project-3.gif',
-    date: 'Java, Selenium, JavaFX',
+    title: 'Professor Insights',
+    description: 'Java application for professor ratings using web scraping and NLP',
+    technologies: ['Java', 'Selenium', 'JavaFX', 'NLP'],
+    image: 'gifs/project-3.gif',
+    link: 'https://github.com/lfbianchini/RMP-Search-Tool'
   },
   {
-    title: 'A full-stack web app allowing users to upload notes, transcribe them with Azure OCR, and generate study guides, flashcards, and summaries using GPT-4. It includes secure file storage with AWS S3 and a responsive React interface.',
-    image:
-      'gifs/project-5.gif',
-    date: 'PostgreSQL, React, Node.js, AWS SDK, Azure OCR, GPT-4',
+    title: 'Note Genius',
+    description: 'AI-powered note transcription and study guide generator',
+    technologies: ['React', 'Azure OCR', 'GPT-4', 'AWS S3'],
+    image: 'gifs/project-5.gif',
+    link: 'https://github.com/lfbianchini/ergon'
   },
   {
-    title: 'This project management software, developed for investment company interns, streamlines workflow with automated LinkedIn verification and email notifications. It features data handling with Pydantic, parallel processing for enhanced performance, and an export feature for formatted Excel reports.',
-    image:
-      'gifs/project-2.gif',
-    date: 'Python, Selenium, Tkinter',
+    title: 'Intern Management',
+    description: 'Project management tool with LinkedIn verification and reporting',
+    technologies: ['Python', 'Selenium', 'Tkinter', 'Excel'],
+    image: 'gifs/project-2.gif',
+    link: 'https://github.com/rohanshah35/idwr-sleuth-tool'
   },
-{
-    title: 'This Java-based archival research tool for UC Berkeley\'s \'The Daily Californian\' automates web scraping and PDF creation from historical newspaper archives. It integrates Azure Form Recognizer for OCR and keyword search functionality.',
-    image:
-    'gifs/project-4.gif',
-    date: 'Java, Maven, Selenium, Azure OCR',
-},
-{
-    title: "This full-stack application provides secure file storage and sharing capabilities using React, Node.js, and AWS S3. It features real-time upload progress, temporary URL file sharing, and user authentication with PostgreSQL.",
-    image:
-      'gifs/project-1.gif',
-    date: 'JavaScript, React, Express.js, AWS SDK, PostgreSQL',
-}
+  {
+    title: 'Daily Cal Archive',
+    description: 'Automated archival research tool for UC Berkeley newspaper',
+    technologies: ['Java', 'Selenium', 'Azure OCR'],
+    image: 'gifs/project-4.gif',
+    link: 'https://github.com/lfbianchini/thedailycal-search-tool'
+  },
+  {
+    title: 'Secure File Share',
+    description: 'Full-stack file storage with real-time upload and sharing',
+    technologies: ['React', 'Node.js', 'AWS S3', 'PostgreSQL'],
+    image: 'gifs/project-1.gif',
+    link: 'https://github.com/lfbianchini/dropbox-clone-web-app'
+  }
 ];
 
-export function ArticlesCardsGrid() {
-    const cards = mockdata.map((article) => (
-      <Card key={article.title} p="sm" radius="sm" component="a" href="#" className={classes.card}>
-        <AspectRatio ratio={16 / 9}>
-          <Image src={article.image} />
-        </AspectRatio>
-        <Text c="dimmed" size="xs" tt="uppercase" fw={700} mt="xs">
-          {article.date}
-        </Text>
-        <Text className={classes.title} mt={5}>
-          {article.title}
-        </Text>
-      </Card>
-    ));
-  
-    return (
-      <Container className={classes.wrapper} size={1400}>
-            <Text className={classes.heading} variant="gradient" mb={'xl'} gradient={{ from: '#A594F9', to: '#6247AA' }}>
-            Projects
-          </Text>
-        <SimpleGrid cols={{ base: 1, sm: 2, lg: 3 }}>{cards}</SimpleGrid>
-      </Container>
-    );
-  }
-  
+export function ProjectsSection() {
+  const [activeProject, setActiveProject] = useState(0);
+
+  return (
+    <div className="min-h-screen py-16 px-4 md:px-16">
+      <div className="max-w-6xl mx-auto">
+        <h2 className="text-4xl md:text-5xl font-bold text-center text-white mb-12 tracking-tight">
+          My <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#A594F9] to-[#6247AA]">Projects</span>
+        </h2>
+
+        <div className="grid md:grid-cols-2 gap-8">
+          {/* Project List */}
+          <div className="space-y-4">
+            {projects.map((project, index) => (
+              <motion.div
+                key={project.title}
+                initial={{ opacity: 0.6 }}
+                animate={{ 
+                  opacity: activeProject === index ? 1 : 0.6,
+                  scale: activeProject === index ? 1.02 : 1
+                }}
+                transition={{ duration: 0.3 }}
+                className={`
+                  cursor-pointer 
+                  p-4 
+                  rounded-lg 
+                  border-2 
+                  ${activeProject === index 
+                    ? 'border-[#A594F9] bg-[#4D4855]' 
+                    : 'border-transparent hover:bg-[#4D4855]'}
+                  transition-all duration-300
+                `}
+                onClick={() => setActiveProject(index)}
+              >
+                <div className="flex justify-between items-center">
+                  <h3 className="text-xl font-semibold text-white">{project.title}</h3>
+                  <ArrowUpRight className="text-[#A594F9]" />
+                </div>
+                <p className="text-gray-400 mt-2 text-sm">{project.description}</p>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Project Details */}
+          <motion.div
+            key={activeProject}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="bg-[#363539] rounded-lg overflow-hidden shadow-2xl"
+          >
+            <div 
+              className="h-96 bg-cover bg-center"
+              style={{ 
+                backgroundImage: `url(${projects[activeProject].image})`,
+                backgroundSize: 'cover'
+              }}
+            />
+            <div className="p-6">
+              <h3 className="text-2xl font-bold text-white mb-4">
+                {projects[activeProject].title}
+              </h3>
+              <div className="flex flex-wrap gap-2 mb-4">
+                {projects[activeProject].technologies.map((tech) => (
+                  <span 
+                    key={tech}
+                    className="
+                      px-3 py-1 
+                      bg-[#4D4855] 
+                      text-[#A594F9] 
+                      rounded-full 
+                      text-xs 
+                      font-medium
+                    "
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+              <p className="text-gray-300 mb-4">
+                {projects[activeProject].description}
+              </p>
+              <div className="flex space-x-4">
+                <button 
+                  className="
+                    flex items-center 
+                    bg-gradient-to-r from-[#A594F9] to-[#6247AA] 
+                    text-white 
+                    px-4 py-2 
+                    rounded-lg 
+                    hover:opacity-90 
+                    transition
+                  "
+                  onClick={() => window.open(projects[activeProject].link)}
+                >
+                  <Code className="mr-2" size={20} /> View Code
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    </div>
+  );
+}

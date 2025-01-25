@@ -23,14 +23,14 @@ export function HeroTitle() {
             gradient={{ from: '#A594F9', to: '#6247AA' }}
             leftSection={<IconDownload size={20} />}
             component="a"
-            href="/path-to-your-resume.pdf"
+            href="https://drive.google.com/file/d/1v28BIuKEpwPTgGKruHRuqN2y-UmzuN8u/view?usp=sharing"
             download
           >
-            Download Resume
+            View Resume
           </Button>
           <Button
             component="a"
-            href="https://github.com/yourusername"
+            href="https://github.com/lfbianchini"
             size="xl"
             variant="default"
             className={classes.control}

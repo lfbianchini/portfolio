@@ -1,7 +1,6 @@
 .wrapper {
     position: relative;
     box-sizing: border-box;
-    background-color: light-dark(var(--mantine-color-white), var(--mantine-color-dark-8));
     min-height: 100vh;
     display: flex;
     flex-direction: row; /* Change from column to row for side-by-side layout */
@@ -9,6 +8,7 @@
     justify-content: center;
     padding: 2rem;
     gap: 2rem; /* Add space between text and image grid */
+    background-color: #242424;
   }
   
   .inner {
@@ -31,12 +31,15 @@
     margin-top: var(--mantine-spacing-xl);
     font-size: clamp(1rem, 3vw, 1.375rem);
     max-width: 100%;
+    color: #828282;
   }
   
   .controls {
     margin-top: calc(var(--mantine-spacing-xl) * 2);
     justify-content: center;
     flex-wrap: wrap;
+    min-width: 100%;
+    min-height: 100%;
   }
   
   .control {
@@ -44,6 +47,8 @@
     padding-left: 30px;
     padding-right: 30px;
     margin: 0.5rem;
+    border: calc(0.0625rem * var(--mantine-scale)) solid var(--mantine-color-default-border); /* Border width and color */
+    background-color: #2E2E2E;
   }
   
   .imageGrid {
